@@ -55,7 +55,7 @@ pipeline {
         stage('Upload to S3 with Timestamp') {
            steps {
               script {
-                def artifactName = 'vprofile-v2.war'  // Replace with your artifact filename
+                def artifactName = 'target/vprofile-v2.war'  // Replace with your artifact filename
                 def buildTimestamp = env.BUILD_ID
 
                   def renamedArtifactName = "my-app-${buildTimestamp}.war"
