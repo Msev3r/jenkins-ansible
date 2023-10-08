@@ -8,9 +8,6 @@ pipeline {
     }
 
     stages {
-        
-
-        
 
         stage('Maven Build (Skip Tests)') {
             steps {
@@ -19,4 +16,11 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            archiveArtifacts artifacts: '**/*.war', allowEmptyArchive: true
+        }
+    }
+    
 }
