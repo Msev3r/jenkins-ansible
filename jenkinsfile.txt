@@ -28,16 +28,7 @@ pipeline {
             }
         }
 
-        
-    }
-
-    post {
-        success {
-            archiveArtifacts artifacts: '**/*.war', allowEmptyArchive: true
-        }
-    }
-
-    stage('SonarQube analysis') {
+        stage('SonarQube analysis') {
         environment{
              def scannerHome = tool 'SonarScanner 4.0'
         }
@@ -47,5 +38,16 @@ pipeline {
             }         
         }
     }
+
+        
+    }
+
+    post {
+        success {
+            archiveArtifacts artifacts: '**/*.war', allowEmptyArchive: true
+        }
+    }
+
+    
     
 }
