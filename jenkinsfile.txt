@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    tools {
+        // Define the JDK and Maven tool installations from Jenkins configuration
+        jdk 'java8' // Replace 'JDK8' with the name of your configured JDK tool
+        maven 'maven' // Replace 'Maven3' with the name of your configured Maven tool
+    }
+
+    stages {
+        
+
+        
+
+        stage('Maven Build (Skip Tests)') {
+            steps {
+                 // Run Maven build with the custom settings and skip tests
+                sh "mvn -s settings.xml clean install -DskipTests"
+            }
+        }
+    }
+}
