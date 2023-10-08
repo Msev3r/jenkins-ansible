@@ -29,11 +29,11 @@ pipeline {
         }
 
         stage('SonarQube analysis') {
-        environment{
+          environment{
              def scannerHome = tool 'SonarScanner'
-        }
-        steps{
-           withSonarQubeEnv('SonarCloud') { // If you have configured more than one global server connection, you can specify its name
+          }
+          steps{
+            withSonarQubeEnv('SonarCloud') { // If you have configured more than one global server connection, you can specify its name
               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=devops-project-msev3r_cicd-ansible -Dsonar.sources=src/ \
               -Dsonar.organization=devops-project-msev3r \
               -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
@@ -41,11 +41,20 @@ pipeline {
               -Dsonar.jacoco.reportsPath=target/jacoco.exec \
               -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
             }         
+          }
+        }
+
+        stage("Quality gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+                }
+            }
         }
     }
 
         
-    }
+    
 
     post {
         success {
