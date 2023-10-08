@@ -35,7 +35,7 @@ pipeline {
         steps{
            withSonarQubeEnv('SonarCloud') { // If you have configured more than one global server connection, you can specify its name
               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=devops-project-msev3r_cicd-ansible -Dsonar.sources=src/ \
-              -Dsonar.organization=devops-project-msev3r -X'''
+              -Dsonar.organization=devops-project-msev3r -Dsonar.java.binaries=/target/classes/com/visualpathit/account/controller/ -X'''
             }         
         }
     }
