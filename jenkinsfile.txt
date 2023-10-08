@@ -53,13 +53,20 @@ pipeline {
         }
 
         stage('Upload to S3 with Timestamp') {
-            steps {
-                s3upload(sourceFfile: 'vprofile-v2.war',bucket: 'elasticbeanstalk-us-east-1-943081362793/jenkinsartifact/$(BUILD_TIMESTAMP)',
-                path: target/vprofile-v2.war )
-            }    
+           steps {
+              script {
+                def artifactName = 'vprofile-v2.war'  // Replace with your artifact filename
+                def buildTimestamp = env.BUILD_ID
 
+                  def renamedArtifactName = "my-app-${buildTimestamp}.war"
+
+                 // Upload the renamed artifact with the Jenkins build timestamp to S3
+                sh "aws s3 cp ${artifactName} s3://elasticbeanstalk-us-east-1-943081362793/jenkinsartifact/${renamedArtifactName}"
+              }
+           }
         }
     }
+
 
         
     
