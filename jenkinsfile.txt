@@ -51,6 +51,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Upload to S3 with Timestamp') {
+            steps {
+                s3upload(sourceFfile: 'vprofile-v2.war',bucket: 'elasticbeanstalk-us-east-1-943081362793/jenkinsartifact/$(BUILD_TIMESTAMP)',
+                path: target/vprofile-v2.war )
+            }    
+
+        }
     }
 
         
