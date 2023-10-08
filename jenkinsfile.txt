@@ -15,6 +15,18 @@ pipeline {
                 sh "mvn -s pom.xml clean install -DskipTests"
             }
         }
+
+        stage('Run Maven Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Run Checkstyle Checks') {
+            steps {
+                sh 'mvn checkstyle:check'
+            }
+        }
     }
 
     post {
