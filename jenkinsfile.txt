@@ -24,7 +24,7 @@ pipeline {
 
         stage('Run Checkstyle Checks') {
             steps {
-                sh 'mvn checkstyle:check'
+                sh 'mvn checkstyle:checkstyle'
             }
         }
     }
